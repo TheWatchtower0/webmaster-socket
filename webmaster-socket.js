@@ -61,6 +61,8 @@ webSocketSecure.on("connection", async (webSocket, request) => {
             },
           });
 
+           console.log(await response.text())
+
           const data = await response.data;
 
           const involvedSockets = [
@@ -129,6 +131,7 @@ webSocketSecure.on("connection", async (webSocket, request) => {
             },
           });
 
+           console.log(await response.text())
           const data = await response.data;
 
           const involvedSockets = [
