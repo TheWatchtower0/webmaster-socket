@@ -2,7 +2,7 @@ import url from "url";
 import { WebSocketServer } from "ws";
 
 const webSocketSecure = new WebSocketServer({
-  port: 8080,
+   port: process.env.PORT || 8080
 });
 
 const BACKEND_URL = "http://fullfdd.cc/api/v1/guestblog";
