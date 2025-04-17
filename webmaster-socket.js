@@ -5,7 +5,7 @@ const webSocketSecure = new WebSocketServer({
    port: process.env.PORT || 8080
 });
 
-const BACKEND_URL = "http://fullfdd.cc/api/v1/guestblog";
+const BACKEND_URL = "https://fdd.thewatchtower.ae/api/v1";
 
 /**
  * @type {Map<string, WebSocket>}
