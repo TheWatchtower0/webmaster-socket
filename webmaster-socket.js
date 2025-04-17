@@ -248,3 +248,5 @@ webSocketSecure.on("connection", async (webSocket, request) => {
     }
   });
 });
+
+console.log('Webmaster socket server is running')
