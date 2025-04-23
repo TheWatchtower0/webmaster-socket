@@ -137,9 +137,10 @@ webSocketSecure.on("connection", async (webSocket, request) => {
             clients.get(data.data.conversation_user_id),
             clients.get(data.data.conversation_admin_id),
           ];
-
+            
           involvedSockets.forEach((socket) => {
-            socket.readyState === socket.OPEN &&
+             console.log(socket, 'socket')
+            socket && socket.readyState === socket.OPEN &&
               socket?.send(JSON.stringify(payload));
           });
         }
@@ -167,7 +168,6 @@ webSocketSecure.on("connection", async (webSocket, request) => {
           );
 
           const data = await response.json();
-
           const involvedSockets = [
             clients.get(data.data.conversation_user_id),
             clients.get(data.data.conversation_admin_id),
