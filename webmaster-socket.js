@@ -64,12 +64,12 @@ webSocketSecure.on("connection", async (webSocket, request) => {
           const data = await response.json();
 
           const involvedSockets = [
-            clients.get(data.data.conversation_user_id),
-            clients.get(data.data.conversation_admin_id),
+            clients.get(data.data.conversation_user_id.toString()),
+            clients.get(data.data.conversation_admin_id.toString()),
           ];
 
           involvedSockets.forEach((socket) => {
-            socket.readyState === socket.OPEN &&
+            socket && socket.readyState === socket.OPEN &&
               socket?.send(JSON.stringify(payload));
           });
         }
@@ -99,12 +99,12 @@ webSocketSecure.on("connection", async (webSocket, request) => {
           const data = await response.json();
 
           const involvedSockets = [
-            clients.get(data.data.conversation_user_id),
-            clients.get(data.data.conversation_admin_id),
+            clients.get(data.data.conversation_user_id.toString()),
+            clients.get(data.data.conversation_admin_id.toString()),
           ];
 
           involvedSockets.forEach((socket) => {
-            socket.readyState === socket.OPEN &&
+            socket && socket.readyState === socket.OPEN &&
               socket?.send(JSON.stringify(payload));
           });
         }
@@ -134,13 +134,13 @@ webSocketSecure.on("connection", async (webSocket, request) => {
            console.log(data)
 
           const involvedSockets = [
-            clients.get(data.data.conversation_user_id),
-            clients.get(data.data.conversation_admin_id),
+            clients.get(data.data.conversation_user_id.toString()),
+            clients.get(data.data.conversation_admin_id.toString()),
           ];
             
           involvedSockets.forEach((socket) => {
              console.log(socket, 'socket')
-            socket && socket.readyState === socket.OPEN &&
+            socket && socket && socket.readyState === socket.OPEN &&
               socket?.send(JSON.stringify(payload));
           });
         }
@@ -158,7 +158,7 @@ webSocketSecure.on("connection", async (webSocket, request) => {
           };
 
           const response = await fetch(
-            `${BACKEND_URL}/conversation/${json.conversation_id}`,
+            `${BACKEND_URL}/messages/conversation/${json.conversation_id}`,
             {
               method: "GET",
               headers: {
@@ -169,12 +169,12 @@ webSocketSecure.on("connection", async (webSocket, request) => {
 
           const data = await response.json();
           const involvedSockets = [
-            clients.get(data.data.conversation_user_id),
-            clients.get(data.data.conversation_admin_id),
+            clients.get(data.data.conversation_user_id.toString()),
+            clients.get(data.data.conversation_admin_id.toString()),
           ];
 
           involvedSockets.forEach((socket) => {
-            socket.readyState === socket.OPEN &&
+            socket && socket && socket.readyState === socket.OPEN &&
               socket?.send(JSON.stringify(payload));
           });
         }
@@ -204,12 +204,12 @@ webSocketSecure.on("connection", async (webSocket, request) => {
           const data = await response.json();
 
           const involvedSockets = [
-            clients.get(data.data.conversation_user_id),
-            clients.get(data.data.conversation_admin_id),
+            clients.get(data.data.conversation_user_id.toString()),
+            clients.get(data.data.conversation_admin_id.toString()),
           ];
 
           involvedSockets.forEach((socket) => {
-            socket.readyState === socket.OPEN &&
+            socket && socket.readyState === socket.OPEN &&
               socket?.send(JSON.stringify(payload));
           });
         }
@@ -235,12 +235,12 @@ webSocketSecure.on("connection", async (webSocket, request) => {
           const data = await response.json();
 
           const involvedSockets = [
-            clients.get(data.data.conversation_user_id),
-            clients.get(data.data.conversation_admin_id),
+            clients.get(data.data.conversation_user_id.toString()),
+            clients.get(data.data.conversation_admin_id.toString()),
           ];
 
           involvedSockets.forEach((socket) => {
-            socket.readyState === socket.OPEN &&
+            socket && socket.readyState === socket.OPEN &&
               socket?.send(JSON.stringify(payload));
           });
         }
