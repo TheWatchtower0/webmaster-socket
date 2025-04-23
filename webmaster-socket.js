@@ -167,7 +167,7 @@ webSocketSecure.on("connection", async (webSocket, request) => {
             }
           );
 
-          const data = await response.data;
+          const data = await response.json();
 
           const involvedSockets = [
             clients.get(data.data.conversation_user_id),
