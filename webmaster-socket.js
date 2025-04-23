@@ -61,8 +61,6 @@ webSocketSecure.on("connection", async (webSocket, request) => {
             },
           });
 
-           console.log(await response.text())
-
           const data = await response.json();
 
           const involvedSockets = [
@@ -131,8 +129,9 @@ webSocketSecure.on("connection", async (webSocket, request) => {
             },
           });
 
-           console.log(await response.text())
           const data = await response.json();
+
+           console.log(data)
 
           const involvedSockets = [
             clients.get(data.data.conversation_user_id),
@@ -168,7 +167,6 @@ webSocketSecure.on("connection", async (webSocket, request) => {
           );
 
           const data = await response.json();
-           console.log(data)
 
           const involvedSockets = [
             clients.get(data.data.conversation_user_id),
