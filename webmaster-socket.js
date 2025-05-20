@@ -34,7 +34,7 @@ webSocketSecure.on("connection", async (webSocket, request) => {
     const json = JSON.parse(Buffer.from(data).toString());
 
     switch (json.type) {
-      case "send_message":
+       case "send_message":
         {
           const payload = {
             ...json,
@@ -47,7 +47,6 @@ webSocketSecure.on("connection", async (webSocket, request) => {
             time: json.time,
             deviceId: webSocket.deviceId,
             ...(json.reply && { reply: json.reply }),
-            ...(json.files && { files: json.files }),
           };
 
           const response = await fetch(`${BACKEND_URL}/messages/send`, {
@@ -59,7 +58,7 @@ webSocketSecure.on("connection", async (webSocket, request) => {
               sender_id: payload.sender_id,
               time: payload.time,
               ...(payload.reply && { parent_id: payload.reply.id }),
-              ...(payload.files && { file: payload.files }),
+              ...(payload.sentFiles && { sentFiles: payload.sentFiles }),
             }),
             headers: {
               "content-type": "application/json",
@@ -74,7 +73,8 @@ webSocketSecure.on("connection", async (webSocket, request) => {
           ];
 
           involvedSockets.forEach((socket) => {
-            socket && socket.readyState === socket.OPEN &&
+            socket &&
+              socket.readyState === socket.OPEN &&
               socket?.send(JSON.stringify(payload));
           });
         }
