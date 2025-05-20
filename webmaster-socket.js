@@ -16,6 +16,11 @@ const clients = new Map();
  */
 const deviceMap = new Map();
 
+/**
+ * @type {Map<string, {conversation_user_id:string,conversation_admin_id:string}>}
+ */
+const conversationsMap = new Map();
+
 webSocketSecure.on("connection", async (webSocket, request) => {
   const { deviceId, userId } = url.parse(request.url, true).query;
 
@@ -157,17 +162,10 @@ webSocketSecure.on("connection", async (webSocket, request) => {
             deviceId: webSocket.deviceId,
           };
 
-          const response = await fetch(
-            `${BACKEND_URL}/messages/conversation/${json.conversation_id}`,
-            {
-              method: "GET",
-              headers: {
-                "content-type": "application/json",
-              },
-            }
-          );
+          const members = await getConversationMembers(json.conversation_id);
 
-          const data = await response.json();
+          if (!members) return;
+           
           const involvedSockets = [
             clients.get(data.data.conversation_user_id.toString()),
             clients.get(data.data.conversation_admin_id.toString()),
@@ -250,5 +248,32 @@ webSocketSecure.on("connection", async (webSocket, request) => {
     }
   });
 });
+
+async function getConversationMembers(conversation_id) {
+  if (conversationsMap.has(conversation_id)) {
+    return conversationsMap.get(conversation_id);
+  } else {
+    const response = await fetch(
+      `${BACKEND_URL}/messages/conversation/${conversation_id}`,
+      {
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    const payload = {
+      conversation_user_id: data.data.conversation_user_id.toString(),
+      conversation_admin_id: data.data.conversation_admin_id.toString(),
+    };
+
+    conversationsMap.set(conversation_id, payload);
+
+    return payload;
+  }
+}
 
 console.log('Webmaster socket server is running')
