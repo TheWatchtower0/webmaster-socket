@@ -166,9 +166,9 @@ webSocketSecure.on("connection", async (webSocket, request) => {
 
           if (!members) return;
            
-          const involvedSockets = [
-            clients.get(data.data.conversation_user_id.toString()),
-            clients.get(data.data.conversation_admin_id.toString()),
+         const involvedSockets = [
+            clients.get(members.conversation_user_id),
+            clients.get(members.conversation_admin_id),
           ];
 
           involvedSockets.forEach((socket) => {
